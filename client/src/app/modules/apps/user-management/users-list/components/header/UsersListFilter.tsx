@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react'
 import {MenuComponent} from '../../../../../../../_metronic/assets/ts/components'
 import {initialQueryState, KTSVG} from '../../../../../../../_metronic/helpers'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
-import {useQueryResponse} from '../../core/QueryResponseProvider'
+import {useUserQueryResponse} from "../../core/UserQueryResponseProvider";
+import {useQueryRequest} from "../../../../../../core/QueryRequestProvider";
 
 const UsersListFilter = () => {
     const {updateState} = useQueryRequest()
-    const {isLoading} = useQueryResponse()
+    const {isLoading} = useUserQueryResponse()
     const [role, setRole] = useState<string | undefined>()
     const [lastLogin, setLastLogin] = useState<string | undefined>()
 

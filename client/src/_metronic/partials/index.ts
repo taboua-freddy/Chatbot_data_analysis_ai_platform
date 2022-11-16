@@ -1,4 +1,3 @@
-export * from './layout/quick-links/QuicLinks'
 export * from './layout/search/Search'
 export * from './layout/SearchModal'
 export * from './layout/MenuModal'
@@ -9,7 +8,6 @@ export * from './layout/sidebar-partials/SidebarGeneral'
 export * from './layout/sidebar-partials/SidebarUser'
 export * from './layout/demos-drawer/DemosDrawer'
 export * from './layout/drawer-messenger/DrawerMessenger'
-export * from './layout/activity-drawer/ActivityDrawer'
 export * from './layout/user-menu/UserMenu'
 export * from './layout/create-app/CreateApp'
 

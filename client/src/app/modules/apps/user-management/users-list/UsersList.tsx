@@ -1,10 +1,10 @@
 import {ListViewProvider, useListView} from './core/ListViewProvider'
-import {QueryRequestProvider} from './core/QueryRequestProvider'
-import {QueryResponseProvider} from './core/QueryResponseProvider'
+import {UserQueryResponseProvider} from './core/UserQueryResponseProvider'
 import {UsersListHeader} from './components/header/UsersListHeader'
 import {UsersTable} from './table/UsersTable'
 import {UserEditModal} from './user-edit-modal/UserEditModal'
 import {KTCard} from '../../../../../_metronic/helpers'
+import {QueryRequestProvider} from "../../../../core/QueryRequestProvider";
 
 const UsersList = () => {
     const {itemIdForUpdate} = useListView()
@@ -21,11 +21,11 @@ const UsersList = () => {
 
 const UsersListWrapper = () => (
     <QueryRequestProvider>
-        <QueryResponseProvider>
+        <UserQueryResponseProvider>
             <ListViewProvider>
                 <UsersList/>
             </ListViewProvider>
-        </QueryResponseProvider>
+        </UserQueryResponseProvider>
     </QueryRequestProvider>
 )
 

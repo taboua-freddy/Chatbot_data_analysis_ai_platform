@@ -2,16 +2,16 @@ import {useMemo} from 'react'
 import {ColumnInstance, Row, useTable} from 'react-table'
 import {CustomHeaderColumn} from '../table/columns/CustomHeaderColumn'
 import {CustomRow} from '../table/columns/CustomRow'
-import {useQueryResponseData, useQueryResponseLoading} from '../core/QueryResponseProvider'
 import {usersColumns} from './columns/_columns'
 import {User} from '../core/_models'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {UsersListPagination} from '../components/pagination/UsersListPagination'
 import {KTCardBody} from '../../../../../../_metronic/helpers'
+import {useUserQueryResponseData, useUserQueryResponseLoading} from "../core/UserQueryResponseProvider";
 
 const UsersTable = () => {
-    const users = useQueryResponseData()
-    const isLoading = useQueryResponseLoading()
+    const users = useUserQueryResponseData()
+    const isLoading = useUserQueryResponseLoading()
     const data = useMemo(() => users, [users])
     const columns = useMemo(() => usersColumns, [])
     const {getTableProps, getTableBodyProps, headers, rows, prepareRow} = useTable({

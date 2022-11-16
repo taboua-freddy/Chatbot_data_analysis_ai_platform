@@ -22,6 +22,25 @@ export function AsideMenuMain() {
                 title='Layout Builder'
                 fontIcon='bi-layers'
             />
+            {/* Data Analysis */}
+            <div className='menu-item'>
+                <div className='menu-content'>
+                    <div className='separator mx-4 my-4'></div>
+                </div>
+            </div>
+            <div className='menu-item'>
+                <div className='menu-content pb-2'>
+                    <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Data Analysis</span>
+                </div>
+            </div>
+            <AsideMenuItem
+                to='/data-analysis/files'
+                icon='/media/icons/duotune/files/fil003.svg'
+                title='My Files'
+                fontIcon='bi-layers'
+            />
+
+            {/*Crafted*/}
             <div className='menu-item'>
                 <div className='menu-content pt-8 pb-2'>
                     <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
@@ -106,23 +125,8 @@ export function AsideMenuMain() {
                 title='User management'
                 fontIcon='bi-layers'
             />
-            <div className='menu-item'>
-                <div className='menu-content'>
-                    <div className='separator mx-1 my-4'></div>
-                </div>
-            </div>
-            <div className='menu-item'>
-                <a
-                    target='_blank'
-                    className='menu-link'
-                    href={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
-                >
-          <span className='menu-icon'>
-            <KTSVG path='/media/icons/duotune/general/gen005.svg' className='svg-icon-2'/>
-          </span>
-                    <span className='menu-title'>Changelog {process.env.REACT_APP_VERSION}</span>
-                </a>
-            </div>
+
+
         </>
     )
 }

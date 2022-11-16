@@ -1,9 +1,13 @@
-import {createContext, Dispatch, SetStateAction, useEffect, useState} from 'react'
+import {Context, createContext, Dispatch, SetStateAction, useContext, useEffect, useState} from 'react'
 import qs from 'qs'
 import {ID, QueryResponseContextProps, QueryState} from './models'
 
 function createResponseContext<T>(initialState: QueryResponseContextProps<T>) {
     return createContext(initialState)
+}
+
+function useQueryResponse<T>(queryResponseContext: Context<QueryResponseContextProps<T>>) {
+    return useContext(queryResponseContext)
 }
 
 function isNotEmpty(obj: unknown) {
@@ -121,4 +125,5 @@ export {
     groupingOnSelectAll,
     useDebounce,
     isNotEmpty,
+    useQueryResponse
 }

@@ -1,4 +1,5 @@
 import {Dispatch, SetStateAction} from 'react'
+import {FileError} from "react-dropzone";
 
 export type ID = undefined | null | number
 
@@ -63,6 +64,8 @@ export const initialQueryResponse = {
 }
 
 export type ListViewContextProps = {
+    filesToUpload?: Map<string, { file: File, errors: FileError[] }>
+    setFilesToUpload?: Dispatch<SetStateAction<Map<string, { file: File, errors: FileError[] }> | undefined>>
     selected: Array<ID>
     onSelect: (selectedId: ID) => void
     onSelectAll: () => void
@@ -88,4 +91,8 @@ export const initialListView: ListViewContextProps = {
     },
     isAllSelected: false,
     disabled: false,
+    filesToUpload: new Map<string, { file: File; errors: FileError[] }>(),
+    setFilesToUpload: () => {
+    }
+
 }

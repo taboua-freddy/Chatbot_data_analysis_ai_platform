@@ -8,15 +8,15 @@ import {
     initialListView,
     ListViewContextProps,
 } from '../../../../../../_metronic/helpers'
-import {useQueryResponse, useQueryResponseData} from './QueryResponseProvider'
+import {useUserQueryResponse, useUserQueryResponseData} from "./UserQueryResponseProvider";
 
 const ListViewContext = createContext<ListViewContextProps>(initialListView)
 
 const ListViewProvider: FC<{ children?: React.ReactNode }> = ({children}) => {
     const [selected, setSelected] = useState<Array<ID>>(initialListView.selected)
     const [itemIdForUpdate, setItemIdForUpdate] = useState<ID>(initialListView.itemIdForUpdate)
-    const {isLoading} = useQueryResponse()
-    const data = useQueryResponseData()
+    const {isLoading} = useUserQueryResponse()
+    const data = useUserQueryResponseData()
     const disabled = useMemo(() => calculatedGroupingIsDisabled(isLoading, data), [isLoading, data])
     const isAllSelected = useMemo(() => calculateIsAllDataSelected(data, selected), [data, selected])
 

@@ -1,19 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC, useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
-import {MenuComponent} from '../../../../../../../_metronic/assets/ts/components'
-import {ID, KTSVG, QUERIES} from '../../../../../../../_metronic/helpers'
-import {useListView} from '../../core/ListViewProvider'
-import {deleteUser} from '../../core/_requests'
-import {useUserQueryResponse} from "../../core/UserQueryResponseProvider";
+import {deleteFile} from "../../../core/_requests";
+import {ID, KTSVG, QUERIES} from "../../../../../../../_metronic/helpers";
+import {useListView} from "../../../core/ListViewProvider";
+import {MenuComponent} from "../../../../../../../_metronic/assets/ts/components";
+import {useFileQueryResponse} from "../../../core/FileQueryResponseProvider";
+import {MySwal} from "../../../../../../../_metronic/helpers/ToastHelper";
+import {Link} from "react-router-dom";
 
 type Props = {
     id: ID
 }
 
-const UserActionsCell: FC<Props> = ({id}) => {
+const FileActionsCell: FC<Props> = ({id}) => {
     const {setItemIdForUpdate} = useListView()
-    const {query} = useUserQueryResponse()
+    const {query} = useFileQueryResponse()
     const queryClient = useQueryClient()
 
     useEffect(() => {
@@ -23,14 +25,36 @@ const UserActionsCell: FC<Props> = ({id}) => {
     const openEditModal = () => {
         setItemIdForUpdate(id)
     }
-
-    const deleteItem = useMutation(() => deleteUser(id), {
+    const deleteItem = useMutation(() => deleteFile(id), {
         // 💡 response of the mutation is passed to onSuccess
         onSuccess: () => {
             // ✅ update detail view directly
             queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
         },
     })
+    const deleteFileHandle = () => {
+        MySwal.fire({
+            icon: "warning",
+            text: "You are about to delete a file",
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Sure",
+        }).then((res) => {
+            if (res.isConfirmed) {
+                let response = deleteItem.mutateAsync()
+                response.then((value) => {
+                    console.log(value)
+                    MySwal.fire("Files deleted !", "", "success")
+                }).catch((reason) => {
+                    MySwal.fire("SomeThing went wrong", "", "error")
+                })
+            } else if (res.isDismissed) {
+                MySwal.fire("Not thing is changed", "", "info")
+            }
+        })
+
+    }
+
 
     return (
         <>
@@ -50,18 +74,18 @@ const UserActionsCell: FC<Props> = ({id}) => {
             >
                 {/* begin::Menu item */}
                 <div className='menu-item px-3'>
-                    <a className='menu-link px-3' onClick={openEditModal}>
-                        Edit
-                    </a>
+                    <Link className='menu-link px-3 text-success' to={`/data-analysis/process-analysis/${id}`}>
+                        Process
+                    </Link>
                 </div>
                 {/* end::Menu item */}
 
                 {/* begin::Menu item */}
                 <div className='menu-item px-3'>
                     <a
-                        className='menu-link px-3'
+                        className='menu-link px-3 text-danger'
                         data-kt-users-table-filter='delete_row'
-                        onClick={async () => await deleteItem.mutateAsync()}
+                        onClick={() => deleteFileHandle()}
                     >
                         Delete
                     </a>
@@ -73,4 +97,4 @@ const UserActionsCell: FC<Props> = ({id}) => {
     )
 }
 
-export {UserActionsCell}
+export {FileActionsCell}

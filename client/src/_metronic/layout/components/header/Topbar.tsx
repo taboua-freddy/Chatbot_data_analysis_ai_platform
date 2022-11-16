@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React, {FC} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
-import {HeaderNotificationsMenu, HeaderUserMenu, QuickLinks, Search} from '../../../partials'
+import {HeaderNotificationsMenu, HeaderUserMenu, Search} from '../../../partials'
 import {useLayout} from '../../core'
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
@@ -17,23 +17,6 @@ const Topbar: FC = () => {
             {/* Search */}
             <div className={clsx('d-flex align-items-stretch', toolbarButtonMarginClass)}>
                 <Search/>
-            </div>
-            {/* Activities */}
-            <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
-                {/* begin::Drawer toggle */}
-                <div
-                    className={clsx(
-                        'btn btn-icon btn-active-light-primary btn-custom',
-                        toolbarButtonHeightClass
-                    )}
-                    id='kt_activities_toggle'
-                >
-                    <KTSVG
-                        path='/media/icons/duotune/general/gen032.svg'
-                        className={toolbarButtonIconSizeClass}
-                    />
-                </div>
-                {/* end::Drawer toggle */}
             </div>
 
             {/* NOTIFICATIONS */}
@@ -76,28 +59,6 @@ const Topbar: FC = () => {
                     <span
                         className='bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink'></span>
                 </div>
-                {/* end::Menu wrapper */}
-            </div>
-
-            {/* Quick links */}
-            <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
-                {/* begin::Menu wrapper */}
-                <div
-                    className={clsx(
-                        'btn btn-icon btn-active-light-primary btn-custom',
-                        toolbarButtonHeightClass
-                    )}
-                    data-kt-menu-trigger='click'
-                    data-kt-menu-attach='parent'
-                    data-kt-menu-placement='bottom-end'
-                    data-kt-menu-flip='bottom'
-                >
-                    <KTSVG
-                        path='/media/icons/duotune/general/gen025.svg'
-                        className={toolbarButtonIconSizeClass}
-                    />
-                </div>
-                <QuickLinks/>
                 {/* end::Menu wrapper */}
             </div>
 

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useQueryResponseLoading, useQueryResponsePagination} from '../../core/QueryResponseProvider'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
+import {useUserQueryResponseLoading, useUserQueryResponsePagination} from "../../core/UserQueryResponseProvider";
+import {useQueryRequest} from "../../../../../../core/QueryRequestProvider";
 
 const UsersListPagination = () => {
-    const pagination = useQueryResponsePagination()
-    const isLoading = useQueryResponseLoading()
+    const pagination = useUserQueryResponsePagination()
+    const isLoading = useUserQueryResponseLoading()
     const {updateState} = useQueryRequest()
     const updatePage = (page: number | null) => {
         if (!page || isLoading || pagination.page === page) {

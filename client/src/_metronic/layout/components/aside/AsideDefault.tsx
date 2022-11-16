@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import {useLayout} from '../../core'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {AsideMenu} from './AsideMenu'
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const AsideDefault: FC = () => {
     const {config, classes} = useLayout()
@@ -73,21 +74,29 @@ const AsideDefault: FC = () => {
             {/* end::Aside menu */}
 
             {/* begin::Footer */}
+
             <div className='aside-footer flex-column-auto pt-5 pb-7 px-5' id='kt_aside_footer'>
-                <a
-                    target='_blank'
-                    className='btn btn-custom btn-primary w-100'
-                    href={process.env.REACT_APP_PREVIEW_DOCS_URL}
-                    data-bs-toggle='tooltip'
-                    data-bs-trigger='hover'
-                    data-bs-dismiss-='click'
-                    title='Check out the complete documentation with over 100 components'
+                <OverlayTrigger
+
+                    overlay={
+                        <Tooltip id={`tooltip-auto`}>
+                            Configure your settings
+                        </Tooltip>
+                    }
                 >
-                    <span className='btn-label'>Docs & Components</span>
-                    <span className='svg-icon btn-icon svg-icon-2'>
-            <KTSVG path='/media/icons/duotune/general/gen005.svg'/>
-          </span>
-                </a>
+                    <Link
+                        className='btn btn-custom btn-primary w-100'
+                        to={"/builder"}
+                        data-bs-trigger='hover'
+                        data-bs-dismiss-='click'
+                    >
+                        <span className='btn-label'>Dashboard Settings</span>
+                        <span className='svg-icon btn-icon svg-icon-2'>
+                            <KTSVG path='/media/icons/duotune/coding/cod001.svg'/>
+                        </span>
+                    </Link>
+                </OverlayTrigger>
+
             </div>
             {/* end::Footer */}
         </div>

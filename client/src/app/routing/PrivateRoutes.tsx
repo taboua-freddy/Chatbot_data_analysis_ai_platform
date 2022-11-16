@@ -3,10 +3,10 @@ import {Navigate, Route, Routes} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
 import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
-import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 
 const PrivateRoutes = () => {
+    const DataAnalysisPage = lazy(() => import("../modules/data-analysis/DataAnalysisPage"))
     const BuilderPageWrapper = lazy(() => import('../pages/layout-builder/BuilderPageWrapper'))
     const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
     const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -23,8 +23,15 @@ const PrivateRoutes = () => {
                 {/* Pages */}
                 <Route path='dashboard' element={<DashboardWrapper/>}/>
                 <Route path='builder' element={<BuilderPageWrapper/>}/>
-                <Route path='menu-test' element={<MenuTestPage/>}/>
                 {/* Lazy Modules */}
+                <Route
+                    path='data-analysis/*'
+                    element={
+                        <SuspensedView>
+                            <DataAnalysisPage/>
+                        </SuspensedView>
+                    }
+                />
                 <Route
                     path='crafted/pages/profile/*'
                     element={

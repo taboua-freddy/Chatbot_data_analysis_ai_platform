@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import {useListView} from '../core/ListViewProvider'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {createUser, updateUser} from '../core/_requests'
-import {useQueryResponse} from '../core/QueryResponseProvider'
+import {useUserQueryResponse} from "../core/UserQueryResponseProvider";
 
 type Props = {
     isUserLoading: boolean
@@ -28,7 +28,7 @@ const editUserSchema = Yup.object().shape({
 
 const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
     const {setItemIdForUpdate} = useListView()
-    const {refetch} = useQueryResponse()
+    const {refetch} = useUserQueryResponse()
 
     const [userForEdit] = useState<User>({
         ...user,

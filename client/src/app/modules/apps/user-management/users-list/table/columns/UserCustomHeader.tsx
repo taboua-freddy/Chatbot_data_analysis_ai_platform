@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import {FC, PropsWithChildren, useMemo} from 'react'
 import {HeaderProps} from 'react-table'
 import {initialQueryState} from '../../../../../../../_metronic/helpers'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
 import {User} from '../../core/_models'
+import {useQueryRequest} from "../../../../../../core/QueryRequestProvider";
 
 type Props = {
     className?: string
