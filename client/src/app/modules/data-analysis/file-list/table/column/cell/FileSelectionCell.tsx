@@ -1,6 +1,6 @@
 import React, {FC, useMemo} from 'react';
 import {ID} from "../../../../../../../_metronic/helpers";
-import {useListView} from "../../../core/ListViewProvider";
+import {useListView} from "../../../../core/ListViewProvider";
 
 const FileSelectionCell: FC<{ id: ID }> = ({id}) => {
     const {selected, onSelect} = useListView()

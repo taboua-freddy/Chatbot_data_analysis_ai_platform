@@ -1,6 +1,6 @@
 import {useMutation, useQueryClient} from 'react-query'
 import {useListView} from '../../core/ListViewProvider'
-import {QUERIES} from "../../../../../../_metronic/helpers";
+import {QUERIES} from "../../../../../_metronic/helpers";
 import {deleteSelectedFiles} from "../../core/_requests";
 import {useFileQueryResponse} from "../../core/FileQueryResponseProvider";
 

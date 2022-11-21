@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {KTSVG} from "../../../../_metronic/helpers";
-import {FilesProperty} from "./core/_file-models";
+import {FilesProperty} from "../core/_file-models";
 
 const style = {
     backgroundSize: "auto calc(100% + 10rem)",

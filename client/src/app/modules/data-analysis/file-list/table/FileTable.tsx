@@ -1,13 +1,13 @@
 import {useMemo} from 'react'
 import {ColumnInstance, Row, useTable} from 'react-table'
 import {CustomHeaderColumn} from "./header/CustomHeaderColumn";
-import {File} from "../core/_file-models";
+import {File} from "../../core/_file-models";
 import {CustomRow} from "./row/CustomRow";
 import {filesColumns} from "./column/_fileColumns";
-import {FilesListPagination} from "../components/pagination/FilesListPagination";
-import {FilesListLoading} from "../components/loading/FilesListLoading";
+import {FilesListPagination} from "../../components/pagination/FilesListPagination";
+import {FilesListLoading} from "../../components/loading/FilesListLoading";
 import {KTCardBody} from "../../../../../_metronic/helpers";
-import {useFileQueryResponseData, useFileQueryResponseLoading} from "../core/FileQueryResponseProvider";
+import {useFileQueryResponseData, useFileQueryResponseLoading} from "../../core/FileQueryResponseProvider";
 
 const FilesTable = () => {
     const files = useFileQueryResponseData()

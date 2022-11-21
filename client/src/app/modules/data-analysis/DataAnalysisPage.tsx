@@ -1,7 +1,7 @@
 import {Navigate, Outlet, Route, Routes} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {FilesListWrapper} from "./file-list/FileList";
-import ProcessAnalysisPage from "./process-analysis/ProcessAnalysisPage";
+import {ProcessAnalysisWrapper} from "./process-analysis/ProcessAnalysisPage"
 
 
 const dataAnalysisBreadCrumbs: Array<PageLink> = [
@@ -37,7 +37,7 @@ const DataAnalysisPage = () => {
                     element={
                         <>
                             <PageTitle breadcrumbs={dataAnalysisBreadCrumbs}>Process Data Analysis</PageTitle>
-                            <ProcessAnalysisPage/>
+                            <ProcessAnalysisWrapper/>
                         </>
                     }
                 />
@@ -46,5 +46,6 @@ const DataAnalysisPage = () => {
         </Routes>
     )
 }
+
 
 export default DataAnalysisPage;

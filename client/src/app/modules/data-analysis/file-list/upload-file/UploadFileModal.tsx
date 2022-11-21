@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useListView} from "../core/ListViewProvider";
-import {initialListView, KTSVG} from "../../../../../_metronic/helpers";
-import {UploadFileItem} from "../components/upload-file/UploadFileItem";
-import {FileError, FileRejection, useDropzone} from "react-dropzone";
+import {useListView} from "../../core/ListViewProvider";
+import {KTSVG} from "../../../../../_metronic/helpers";
+import {UploadFileItem} from "../../components/upload-file/UploadFileItem";
+import {FileError, useDropzone} from "react-dropzone";
 import {maxFileSize, validateFile} from "./file-validator";
 import {MySwal} from "../../../../../_metronic/helpers/ToastHelper";
-import Swal from "sweetalert2";
+import {bytesToString} from "../../../../../_metronic/helpers/convertor";
 
 
 const UploadFileModal = () => {
@@ -14,7 +14,6 @@ const UploadFileModal = () => {
         isAcceptedFiles: false,
         isRejectedFiles: false
     });
-    const [fileItems, setFileItems] = useState<JSX.Element[]>([]);
     const {filesToUpload, setFilesToUpload} = useListView()
     const [itemToDelete, setItemToDelete] = useState<string>("");
 
@@ -45,7 +44,6 @@ const UploadFileModal = () => {
             if (result.isConfirmed) {
                 if (setFilesToUpload) {
                     setFilesToUpload(new Map<string, { file: File; errors: FileError[] }>())
-                    setFileItems([])
                     setIsFileAllRemoved(true)
                     setAttachedFileState(getAttachedFileStateVal(true))
                 }
@@ -58,14 +56,12 @@ const UploadFileModal = () => {
 
     const deleteItem = (itemToDelete: string) => {
         if (setFilesToUpload && filesToUpload?.delete(itemToDelete)) {
-            setFileItems(fileItems.filter((value) => value.key !== itemToDelete))
             setFilesToUpload(filesToUpload)
             setAttachedFileState(getAttachedFileStateVal())
         }
 
     }
     useEffect(() => {
-        console.log(filesToUpload)
         if (setFilesToUpload && filesToUpload && !isFileAllRemoved) {
             acceptedFiles.forEach((file) => {
                 filesToUpload.set(file.name, {file: file, errors: []})
@@ -74,11 +70,6 @@ const UploadFileModal = () => {
                 filesToUpload.set(file.name, {file: file, errors: errors})
             })
             setFilesToUpload(filesToUpload)
-            setFileItems(Array.from(filesToUpload.values()).map((value) =>
-                <UploadFileItem setItemToDelete={setItemToDelete}
-                                key={value.file.name} id={value.file.name}
-                                file={value.file}
-                                errors={value.errors}/>))
             setIsFileAllRemoved(false)
             setAttachedFileState(getAttachedFileStateVal())
         }
@@ -133,11 +124,16 @@ const UploadFileModal = () => {
                                         {/* item to upload */}
                                         <div className="dropzone-items wm-200px">
                                             {
-                                                fileItems
+                                                Array.from(filesToUpload!.values()).map((value) =>
+                                                    <UploadFileItem setItemToDelete={setItemToDelete}
+                                                                    key={value.file.name} id={value.file.name}
+                                                                    file={value.file}
+                                                                    errors={value.errors}/>)
                                             }
                                         </div>
                                     </div>
-                                    <span className="form-text fs-6 text-muted">Max file size is {maxFileSize} bytes per file.</span>
+                                    <span
+                                        className="form-text fs-6 text-danger">Max file size is <strong>{bytesToString(maxFileSize)}</strong> per file.</span>
                                 </div>
                             </div>
                         </form>

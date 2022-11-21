@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import {Cell, Row} from 'react-table'
-import {File} from "../../core/_file-models";
+import {File} from "../../../core/_file-models";
 
 type Props = {
     row: Row<File>

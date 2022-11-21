@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {ColumnInstance} from 'react-table'
-import {File} from "../../core/_file-models";
+import {File} from "../../../core/_file-models";
 
 type Props = {
     column: ColumnInstance<File>

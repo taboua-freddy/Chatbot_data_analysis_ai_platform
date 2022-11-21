@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {FC, useContext, useEffect, useMemo, useState} from 'react'
-import {useQuery, UseQueryResult} from 'react-query'
+import {useQuery} from 'react-query'
 import {
     createResponseContext,
     initialQueryResponse,
     initialQueryState,
     PaginationState,
-    QUERIES, QueryResponseContextProps, Response,
-    stringifyRequestQuery, useQueryResponse,
-} from '../../../../../_metronic/helpers'
+    QUERIES,
+    stringifyRequestQuery,
+} from '../../../../_metronic/helpers'
 import {getFiles} from './_requests'
 import {File} from './_file-models'
-import {useQueryRequest} from "../../../../core/QueryRequestProvider";
+import {useQueryRequest} from "../../../core/QueryRequestProvider";
 
 const QueryResponseContext = createResponseContext<File>(initialQueryResponse)
 

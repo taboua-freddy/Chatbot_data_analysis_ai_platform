@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useState} from 'react'
-import {initialQueryState, KTSVG, useDebounce} from '../../../../../../_metronic/helpers'
+import {initialQueryState, KTSVG, useDebounce} from '../../../../../_metronic/helpers'
 
-import {useQueryRequest} from "../../../../../core/QueryRequestProvider";
+import {useQueryRequest} from "../../../../core/QueryRequestProvider";
 
 const FilesListSearchComponent = () => {
     const {updateState} = useQueryRequest()

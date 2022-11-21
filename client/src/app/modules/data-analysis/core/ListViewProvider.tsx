@@ -7,7 +7,7 @@ import {
     ID,
     initialListView,
     ListViewContextProps,
-} from '../../../../../_metronic/helpers'
+} from '../../../../_metronic/helpers'
 import {useFileQueryResponse, useFileQueryResponseData} from './FileQueryResponseProvider'
 import {FileError} from "react-dropzone";
 

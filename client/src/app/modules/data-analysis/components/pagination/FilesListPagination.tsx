@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useFileQueryResponseLoading, useFileQueryResponsePagination} from "./FileQueryResponseProvider";
+import {useFileQueryResponseLoading, useFileQueryResponsePagination} from '../../core/FileQueryResponseProvider'
 import {useQueryRequest} from "../../../../core/QueryRequestProvider";
 
 const FilesListPagination = () => {

@@ -1,9 +1,8 @@
-import {useListView} from '../../core/ListViewProvider'
 import {FilesListFilter} from './FilesListFilter'
-import {KTSVG} from "../../../../../../_metronic/helpers";
+import {KTSVG} from "../../../../../_metronic/helpers";
 
 const FilesListToolbar = () => {
-    
+
     return (
         <div className='d-flex justify-content-end' data-kt-user-table-toolbar='base'>
             <FilesListFilter/>

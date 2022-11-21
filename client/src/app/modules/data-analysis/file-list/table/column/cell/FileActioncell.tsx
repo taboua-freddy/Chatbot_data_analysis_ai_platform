@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {FC, useEffect} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
-import {deleteFile} from "../../../core/_requests";
+import {deleteFile} from "../../../../core/_requests";
 import {ID, KTSVG, QUERIES} from "../../../../../../../_metronic/helpers";
-import {useListView} from "../../../core/ListViewProvider";
+import {useListView} from "../../../../core/ListViewProvider";
 import {MenuComponent} from "../../../../../../../_metronic/assets/ts/components";
-import {useFileQueryResponse} from "../../../core/FileQueryResponseProvider";
+import {useFileQueryResponse} from "../../../../core/FileQueryResponseProvider";
 import {MySwal} from "../../../../../../../_metronic/helpers/ToastHelper";
 import {Link} from "react-router-dom";
 

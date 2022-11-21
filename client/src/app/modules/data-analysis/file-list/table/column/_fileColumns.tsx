@@ -1,5 +1,5 @@
 import {Column} from 'react-table'
-import {File} from "../../core/_file-models";
+import {File} from "../../../core/_file-models";
 import {FileSelectionHeader} from "../header/FileSelectionHeader";
 import {FileHeader} from "../header/FileHeader";
 import FileInfoCell from "./cell/FileInfoCell";

@@ -1,7 +1,7 @@
 import {FC, PropsWithChildren} from 'react'
 import {HeaderProps} from 'react-table'
-import {File} from "../../core/_file-models";
-import {useListView} from "../../core/ListViewProvider";
+import {File} from "../../../core/_file-models";
+import {useListView} from "../../../core/ListViewProvider";
 
 type Props = {
     tableProps: PropsWithChildren<HeaderProps<File>>

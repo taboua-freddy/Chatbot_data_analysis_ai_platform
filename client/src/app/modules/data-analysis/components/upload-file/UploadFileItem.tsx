@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {FileError} from "react-dropzone";
-import {KTSVG} from "../../../../../../_metronic/helpers";
-import {useListView} from "../../core/ListViewProvider";
+import {KTSVG} from "../../../../../_metronic/helpers";
+import {bytesToString} from "../../../../../_metronic/helpers/convertor";
 
 const UploadFileItem: FC<{ setItemToDelete: React.Dispatch<React.SetStateAction<string>>, id: string, file: File, errors?: FileError[] }> = ({
                                                                                                                                                  setItemToDelete,
@@ -24,7 +24,7 @@ const UploadFileItem: FC<{ setItemToDelete: React.Dispatch<React.SetStateAction<
                      title={file.name}>
                     <span data-dz-name="">{file.name}</span>
                     <strong>(
-                        <span data-dz-size="">{file.size} bytes</span>)
+                        <span data-dz-size="">{bytesToString(file.size)}</span>)
                     </strong>
                 </div>
                 {divErrors}

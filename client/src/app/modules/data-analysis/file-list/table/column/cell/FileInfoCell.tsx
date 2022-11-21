@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {File} from "../../../core/_file-models";
+import {File} from "../../../../core/_file-models";
 import {toAbsoluteUrl} from "../../../../../../../_metronic/helpers";
 import clsx from "clsx";
 

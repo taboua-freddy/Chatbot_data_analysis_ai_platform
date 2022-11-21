@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from 'axios'
 import {File, FileQueryResponse} from "./_file-models";
-import {ID, Response} from "../../../../../_metronic/helpers";
+import {ID, Response} from "../../../../_metronic/helpers";
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${API_URL}/user`
