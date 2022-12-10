@@ -22,6 +22,13 @@ export type SearchState = {
     search?: string
 }
 
+export type FilesProperty = {
+    total_size: number
+    n_total_items: number
+}
+
+export type ExtraData = { files_property?: FilesProperty }
+
 export type Response<T> = {
     data?: T
     payload?: {
@@ -30,6 +37,7 @@ export type Response<T> = {
             [key: string]: Array<string>
         }
         pagination?: PaginationState
+        extra_data?: ExtraData
     }
 }
 

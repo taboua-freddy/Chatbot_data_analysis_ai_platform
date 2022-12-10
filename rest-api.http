@@ -1,0 +1,61 @@
+###login
+POST {{host}}/account/auth/login/
+Content-Type: application/json
+
+{
+  "email": "tabouaf1@gmail.com",
+  "password": "Tabouapiter25"
+}
+
+### Registration
+POST {{host}}/account/registration/
+Content-Type: application/json
+
+{
+  "email": "example@gmail.com",
+  "password1": "Tabouapiter25"
+}
+
+### Verify token
+POST {{host}}/account/token/verify/
+Content-Type: application/json
+
+{
+  "token": "{{access_token}}"
+}
+
+### refresh token
+POST {{host}}/account/token/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "{{refresh_token}}"
+}
+
+### Get user
+GET {{host}}/auth/user/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+### fetch user
+POST {{host}}/account/user/
+Content-Type: application/json
+Authorization: Bearer {{access_token_root}}
+
+{
+  "id": 2
+}
+
+
+### Upload files
+POST {{host}}/account/files/upload/
+Authorization: Bearer {{access_token_root}}
+Content-Type: multipart/form-data ; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"
+Content-Type: f
+
+### Get files
+GET {{host}}/account/files/?page=1&items_per_page=10
+Authorization: Bearer {{access_token_root}}

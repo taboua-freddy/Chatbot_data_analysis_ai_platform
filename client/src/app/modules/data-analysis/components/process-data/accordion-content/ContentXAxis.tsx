@@ -3,14 +3,18 @@ import {TextField} from "@mui/material";
 import {useDataAnalysis} from "../../../core/DataAnalysisProvider";
 
 const ContentXAxis: FC = () => {
-    const {dataFields, setParamsFieldsPartial} = useDataAnalysis()
+    const {state, dispatch} = useDataAnalysis()
 
     function setXLabel(e: any) {
-        setParamsFieldsPartial({...dataFields, xLabelName: String(e.target.value)})
+        dispatch({
+            type: "add_params",
+            params: {xLabelName: String(e.target.value)}
+        })
     }
 
     return (
-        <TextField onChange={setXLabel} className="mt-2" size="small" label="x axis label"
+        <TextField onChange={setXLabel} value={state.dataFields.xLabelName} className="mt-2" size="small"
+                   label="x axis label"
                    variant="outlined"/>
     );
 };

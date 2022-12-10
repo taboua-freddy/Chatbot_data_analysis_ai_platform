@@ -2,7 +2,7 @@
 import React, {FC, useContext, useEffect, useMemo, useState} from 'react'
 import {useQuery} from 'react-query'
 import {
-    createResponseContext,
+    createResponseContext, FilesProperty,
     initialQueryResponse,
     initialQueryState,
     PaginationState,
@@ -31,7 +31,7 @@ const FileQueryResponseProvider: FC<{ children?: React.ReactNode }> = ({children
         refetch,
         data: response,
     } = useQuery(
-        `${QUERIES.USERS_LIST}-${query}`,
+        `${QUERIES.FILES_LIST}-${query}`,
         () => {
             return getFiles(query)
         },
@@ -54,6 +54,19 @@ const useFileQueryResponseData = () => {
     }
 
     return response?.data || []
+}
+
+const useFilePropertyQueryResponse = () => {
+    const {response} = useFileQueryResponse()
+    const defaultFilesPropertyState: FilesProperty = {
+        n_total_items: 0,
+        total_size: 0
+    }
+
+    if (!response || !response.payload || !response.payload.extra_data || !response.payload.extra_data.files_property) {
+        return defaultFilesPropertyState
+    }
+    return response.payload.extra_data.files_property
 }
 
 const useFileQueryResponsePagination = () => {
@@ -81,4 +94,5 @@ export {
     useFileQueryResponseData,
     useFileQueryResponsePagination,
     useFileQueryResponseLoading,
+    useFilePropertyQueryResponse
 }

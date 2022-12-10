@@ -14,7 +14,7 @@ type Props = {
 }
 
 const FileActionsCell: FC<Props> = ({id}) => {
-    const {setItemIdForUpdate} = useListView()
+    const {clearSelected, setItemIdForUpdate} = useListView()
     const {query} = useFileQueryResponse()
     const queryClient = useQueryClient()
 
@@ -29,7 +29,8 @@ const FileActionsCell: FC<Props> = ({id}) => {
         // 💡 response of the mutation is passed to onSuccess
         onSuccess: () => {
             // ✅ update detail view directly
-            queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
+            queryClient.invalidateQueries([`${QUERIES.FILES_LIST}-${query}`])
+            clearSelected()
         },
     })
     const deleteFileHandle = () => {
@@ -43,8 +44,7 @@ const FileActionsCell: FC<Props> = ({id}) => {
             if (res.isConfirmed) {
                 let response = deleteItem.mutateAsync()
                 response.then((value) => {
-                    console.log(value)
-                    MySwal.fire("Files deleted !", "", "success")
+                    MySwal.fire("File deleted !", "", "success")
                 }).catch((reason) => {
                     MySwal.fire("SomeThing went wrong", "", "error")
                 })

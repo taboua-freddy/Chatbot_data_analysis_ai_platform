@@ -1,47 +1,49 @@
 import axios, {AxiosResponse} from 'axios'
-import {File, FileQueryResponse} from "./_file-models";
+import {File as _File, FileQueryResponse} from "./_file-models";
 import {ID, Response} from "../../../../_metronic/helpers";
 
+const API_URL1 = "http://localhost:8000"
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${API_URL}/user`
-const GET_USERS_URL = `${API_URL}/users/query`
+const GET_FILES_URL = `${API_URL1}/account/files/`
+const UPLOAD_FILES = `${API_URL1}/account/files/`
+const FILES_URL = `${API_URL1}/account/files/`
 
 const getFiles = (query: string): Promise<FileQueryResponse> => {
     return axios
-        .get(`${GET_USERS_URL}?${query}`)
+        .get(`${FILES_URL}?${query}`)
         .then((d: AxiosResponse<FileQueryResponse>) => d.data)
 }
 
-const getFileById = (id: ID): Promise<File | undefined> => {
+const uploadFiles = (files: File[]): Promise<FileQueryResponse> => {
+    let formData = new FormData()
+    files.forEach(f => formData.append(f.name, f as Blob))
+
     return axios
-        .get(`${USER_URL}/${id}`)
-        .then((response: AxiosResponse<Response<File>>) => response.data)
-        .then((response: Response<File>) => response.data)
+        .put(FILES_URL, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then((d: AxiosResponse<FileQueryResponse>) => d.data)
 }
 
-const createFile = (file: File): Promise<File | undefined> => {
+const getFileById = (id: ID): Promise<_File | undefined> => {
     return axios
-        .put(USER_URL, file)
-        .then((response: AxiosResponse<Response<File>>) => response.data)
-        .then((response: Response<File>) => response.data)
-}
-
-const updateFile = (file: File): Promise<File | undefined> => {
-    return axios
-        .post(`${USER_URL}/${file.id}`, file)
-        .then((response: AxiosResponse<Response<File>>) => response.data)
-        .then((response: Response<File>) => response.data)
+        .get(`${USER_URL}/${id}/`)
+        .then((response: AxiosResponse<Response<_File>>) => response.data)
+        .then((response: Response<_File>) => response.data)
 }
 
 const deleteFile = (fileId: ID): Promise<void> => {
-    return axios.delete(`${USER_URL}/${fileId}`).then(() => {
+    return axios.delete(`${FILES_URL}${fileId}/`).then(() => {
     })
 }
 
 const deleteSelectedFiles = (fileIds: Array<ID>): Promise<void> => {
-    const requests = fileIds.map((id) => axios.delete(`${USER_URL}/${id}`))
+    const requests = fileIds.map((id) => axios.delete(`${FILES_URL}${id}/`))
     return axios.all(requests).then(() => {
     })
 }
 
-export {getFiles, deleteFile, deleteSelectedFiles, getFileById, createFile, updateFile}
+export {getFiles, deleteFile, deleteSelectedFiles, getFileById, uploadFiles}

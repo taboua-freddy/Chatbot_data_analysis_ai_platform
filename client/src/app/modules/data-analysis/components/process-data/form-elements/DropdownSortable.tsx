@@ -23,21 +23,20 @@ const GroupItems = styled('ul')({
 type DropdownSortableProps = {
     options: Array<featureType>
     fieldName: keyof ProcessFields
+    defaultValue?: featureType
 }
 
-const DropdownSortable: FC<DropdownSortableProps> = ({fieldName, options}) => {
-    const {dataFields, setParamsFieldsPartial} = useDataAnalysis()
-
+const DropdownSortable: FC<DropdownSortableProps> = ({defaultValue, fieldName, options}) => {
+    const {state, dispatch} = useDataAnalysis()
     return (
         <Autocomplete
-            onInputChange={(event, newInputValue) => {
-                // @ts-ignore
-                dataFields[fieldName] = newInputValue
-                setParamsFieldsPartial(dataFields)
-
-            }}
             onChange={(event, value) => {
-
+                // @ts-ignore
+                state.dataFields[fieldName] = value
+                dispatch({
+                    type: "add_params",
+                    params: state.dataFields
+                })
             }}
             size={"small"}
             options={options.sort((a, b) => -b.category!.localeCompare(a.category as string))}
@@ -45,9 +44,10 @@ const DropdownSortable: FC<DropdownSortableProps> = ({fieldName, options}) => {
             getOptionLabel={(option) => option.label}
             isOptionEqualToValue={(option, value) => option.label === value.label}
             sx={{width: auto}}
+            value={state.dataFields.feature}
             renderInput={(params) => <TextField {...params} label="Select Feature"/>}
             renderGroup={(params) => (
-                <li>
+                <li key={params.key}>
                     <GroupHeader>{params.group}</GroupHeader>
                     <GroupItems>{params.children}</GroupItems>
                 </li>

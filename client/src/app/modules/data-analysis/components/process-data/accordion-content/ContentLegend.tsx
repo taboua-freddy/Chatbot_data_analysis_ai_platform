@@ -3,36 +3,45 @@ import {FormControlLabel, Switch, TextField} from "@mui/material";
 import SelectSingle from "../form-elements/SelectSingle";
 import {useDataAnalysis} from "../../../core/DataAnalysisProvider";
 
-const ContentXAxis: FC = () => {
-    const {dataFields, setParamsFieldsPartial} = useDataAnalysis()
+const ContentLegend: FC = () => {
+    const {state, dispatch} = useDataAnalysis()
 
     function toggleLegend(checked: boolean) {
-        dataFields.showLegend = checked
+        state.dataFields.showLegend = checked
         if (!checked) {
-            dataFields.legendText = undefined
-            dataFields.legendAlignment = undefined
+            state.dataFields.legendText = undefined
+            state.dataFields.legendAlignment = undefined
         }
-        setParamsFieldsPartial(dataFields)
+        dispatch({
+            type: "add_params",
+            params: state.dataFields
+        })
     }
 
     return (
         <div className="mt-2">
-            <FormControlLabel onChange={(event, checked) => toggleLegend(checked)}
-                              control={<Switch checked={dataFields.showLegend}/>}
+            <FormControlLabel onChange={(event, checked) => {
+                toggleLegend(checked)
+            }}
+                              control={<Switch checked={state.dataFields.showLegend}/>}
                               label="Show Legend"/>
             {
-                dataFields.showLegend &&
+                state.dataFields.showLegend &&
                 <>
                     <TextField onChange={(e) => {
-                        setParamsFieldsPartial({...dataFields, legendText: String(e.target.value)})
+                        dispatch({
+                            type: "add_params",
+                            params: {legendText: String(e.target.value)}
+                        })
                     }
-                    } className="mt-2" size="small" label="Legend text" variant="outlined"/>
+                    } value={state.dataFields.legendText} className="mt-2" size="small" label="Legend text"
+                               variant="outlined"/>
                     <SelectSingle fieldName={"legendAlignment"} data={["left", "center", "right"]} label={"Alignment"}
-                                  defaultValue={"left"}/>
+                                  defaultValue={state.dataFields.legendAlignment ? state.dataFields.legendAlignment : "left"}/>
                 </>
             }
         </div>
     );
 };
 
-export default ContentXAxis;
+export default ContentLegend;

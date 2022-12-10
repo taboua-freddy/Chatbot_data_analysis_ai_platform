@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import {KTSVG} from "../../../../_metronic/helpers";
-import {FilesProperty} from "../core/_file-models";
+import {FilesProperty, KTSVG} from "../../../../_metronic/helpers";
+import {bytesToString} from "../../../../_metronic/helpers/convertor";
+import {useFilePropertyQueryResponse} from "../core/FileQueryResponseProvider";
 
 const style = {
     backgroundSize: "auto calc(100% + 10rem)",
@@ -8,7 +9,8 @@ const style = {
     backgroundImage: "url('/media/illustrations/sketchy-1/4.png')"
 }
 
-const FileListContentHeader: FC<FilesProperty> = (props) => {
+const FileListContentHeader: FC = () => {
+    const files_prop = useFilePropertyQueryResponse()
     return (
         <>
             <div className="card card-flush pb-0 bgi-position-y-center bgi-no-repeat mb-10"
@@ -27,8 +29,10 @@ const FileListContentHeader: FC<FilesProperty> = (props) => {
                                 <a href="#">{process.env.REACT_APP_THEME_NAME}</a>
                                 <span className="mx-3">|</span>
                                 <a href="#">File Manager</a>
-                                <span className="mx-3">|</span>{props.max_size ? props.max_size : 0} Ko
-                                <span className="mx-3">|</span>{props.max_items ? props.max_items : 0} items
+                                <span
+                                    className="mx-3">|</span>{bytesToString(files_prop.total_size)}
+                                <span
+                                    className="mx-3">|</span>{files_prop.n_total_items} {files_prop.n_total_items <= 1 ? "item" : "items"}
                             </div>
                         </div>
                     </div>

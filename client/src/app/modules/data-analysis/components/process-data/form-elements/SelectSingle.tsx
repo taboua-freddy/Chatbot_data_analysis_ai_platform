@@ -11,20 +11,23 @@ type ContentDataColumnProps = {
 }
 
 const SelectSingle: FC<ContentDataColumnProps> = ({fieldName, label, data, defaultValue}) => {
-    const {dataFields, setParamsFieldsPartial} = useDataAnalysis()
+    const {state, dispatch} = useDataAnalysis()
     return (
         <Autocomplete
             onInputChange={(event, newInputValue) => {
                 // @ts-ignore
-                dataFields[fieldName] = newInputValue
-                setParamsFieldsPartial(dataFields)
+                state.dataFields[fieldName] = newInputValue
+                dispatch({
+                    type: "add_params",
+                    params: state.dataFields
+                })
             }}
-            limitTags={1} className="mt-3"
+            limitTags={2} className="mt-3"
             id="size-small-outlined-multi"
             size="small"
             options={data}
             getOptionLabel={(data) => data}
-            defaultValue={defaultValue}
+            value={defaultValue}
             renderInput={(params) => (
                 <TextField {...params} label={label}/>
             )}

@@ -18,6 +18,7 @@ type Props = {
     utilityPY?: number
     utilityPX?: number,
     children?: React.ReactNode
+    style?: React.CSSProperties
 }
 
 const KTCard: FC<Props> = (props) => {
@@ -34,9 +35,11 @@ const KTCard: FC<Props> = (props) => {
         utilityPY,
         utilityPX,
         children,
+        style,
     } = props
     return (
         <div
+            style={style}
             className={clsx(
                 'card',
                 className && className,

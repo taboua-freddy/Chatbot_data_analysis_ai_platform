@@ -6,10 +6,11 @@ type Props = {
     scroll?: boolean
     height?: number
     children?: React.ReactNode
+    style?: React.CSSProperties
 }
 
 const KTCardBody: FC<Props> = (props) => {
-    const {className, scroll, height, children} = props
+    const {className, scroll, height, children, style} = props
     return (
         <div
             className={clsx(
@@ -20,6 +21,7 @@ const KTCardBody: FC<Props> = (props) => {
                 },
                 height && `h-${height}px`
             )}
+            style={style}
         >
             {children}
         </div>

@@ -1,14 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {useListView} from "../../core/ListViewProvider";
-import {KTSVG} from "../../../../../_metronic/helpers";
+import {KTSVG, QUERIES} from "../../../../../_metronic/helpers";
 import {UploadFileItem} from "../../components/upload-file/UploadFileItem";
 import {FileError, useDropzone} from "react-dropzone";
 import {maxFileSize, validateFile} from "./file-validator";
-import {MySwal} from "../../../../../_metronic/helpers/ToastHelper";
+import {MySwal, MyToast} from "../../../../../_metronic/helpers/ToastHelper";
 import {bytesToString} from "../../../../../_metronic/helpers/convertor";
+import {useMutation, useQuery, useQueryClient} from "react-query";
+import {deleteSelectedFiles, getFiles, uploadFiles} from "../../core/_requests";
+import {FileQueryResponse} from "../../core/_file-models";
+import {useFileQueryResponse} from "../../core/FileQueryResponseProvider";
 
 
 const UploadFileModal = () => {
+    const {clearSelected} = useListView()
+    const {query} = useFileQueryResponse()
+    const queryClient = useQueryClient()
     const [isFileAllRemoved, setIsFileAllRemoved] = useState(false);
     const [attachedFileState, setAttachedFileState] = useState<{ isAcceptedFiles: boolean, isRejectedFiles: boolean }>({
         isAcceptedFiles: false,
@@ -35,7 +42,7 @@ const UploadFileModal = () => {
 
     const deleteAllItems = () => {
         MySwal.fire({
-            icon: "question",
+            icon: "warning",
             text: "You are about to remove all the attached files.",
             showCancelButton: true,
             showConfirmButton: true,
@@ -81,6 +88,59 @@ const UploadFileModal = () => {
         deleteItem(itemToDelete)
     }, [itemToDelete]);
 
+    const upload = useMutation(() => {
+        const files = filesToUpload ? Array.from(filesToUpload.values()).map(value => value.file) : []
+        return uploadFiles(files)
+    }, {
+        // 💡 response of the mutation is passed to onSuccess
+        onSuccess: () => {
+            // ✅ update detail view directly
+            queryClient.invalidateQueries([`${QUERIES.FILES_LIST}-${query}`])
+            if (setFilesToUpload) {
+                setFilesToUpload(new Map<string, { file: File; errors: FileError[] }>())
+            }
+            setIsFileAllRemoved(true)
+            setAttachedFileState(getAttachedFileStateVal(true))
+        },
+    })
+
+
+    function handleUpload() {
+        MySwal.fire({
+            icon: "question",
+            text: "Do you really want to upload these files?",
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: "Yes upload"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const fileForm = filesToUpload ? Array.from(filesToUpload.values()).map(value => value.file) : []
+
+                const newFiles = uploadFiles(fileForm)
+                    .then((resp: FileQueryResponse) => {
+                        MySwal.fire("Files uploaded !", "", "success")
+                        //clearSelected()
+                        return resp.data
+                    })
+                    .catch((reason) => {
+                        MyToast.fire({
+                            icon: "error",
+                            titleText: "Something went wrong with the server!"
+                        })
+                    })
+                    .finally(() => {
+                        //stop loading
+                    })
+
+                if (setFilesToUpload) {
+                    setFilesToUpload(new Map<string, { file: File; errors: FileError[] }>())
+                    setIsFileAllRemoved(true)
+                    setAttachedFileState(getAttachedFileStateVal(true))
+                }
+
+            }
+        })
+    }
 
     return (
         <div>
@@ -109,8 +169,8 @@ const UploadFileModal = () => {
                                             </a>
                                             {
                                                 attachedFileState.isAcceptedFiles && !attachedFileState.isRejectedFiles &&
-                                                <a
-                                                    className="dropzone-upload btn btn-sm btn-light-primary me-2">Upload
+                                                <a onClick={handleUpload}
+                                                   className="dropzone-upload btn btn-sm btn-light-primary me-2">Upload
                                                     All</a>
                                             }
                                             {

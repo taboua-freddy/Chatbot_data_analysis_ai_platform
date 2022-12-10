@@ -3,9 +3,9 @@ import {File} from "../../../core/_file-models";
 import {FileSelectionHeader} from "../header/FileSelectionHeader";
 import {FileHeader} from "../header/FileHeader";
 import FileInfoCell from "./cell/FileInfoCell";
-import FileExtCell from "./cell/FileExtCell";
 import {FileActionsCell} from "./cell/FileActioncell";
 import {FileSelectionCell} from "./cell/FileSelectionCell";
+import FileCreationDateCell from "./cell/FileCreationDateCell";
 
 const filesColumns: ReadonlyArray<Column<File>> = [
     {
@@ -20,10 +20,10 @@ const filesColumns: ReadonlyArray<Column<File>> = [
     },
     {
         Header: (props: any) => (
-            <FileHeader tableProps={props} title='Extension' className='min-w-125px'/>
+            <FileHeader tableProps={props} title='Created at' className='min-w-125px'/>
         ),
-        id: 'extension',
-        Cell: ({...props}) => <FileExtCell extension={props.data[props.row.index].last_login}/>,
+        id: 'created_at',
+        Cell: ({...props}) => <FileCreationDateCell created_at={props.data[props.row.index].created_at}/>,
     },
     {
         Header: (props: any) => (

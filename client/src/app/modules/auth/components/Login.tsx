@@ -21,8 +21,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    email: 'tabouaf@gmail.com',
+    password: 'Freedom1',
 }
 
 /*
@@ -43,7 +43,7 @@ export function Login() {
             try {
                 const {data: auth} = await login(values.email, values.password)
                 saveAuth(auth)
-                const {data: user} = await getUserByToken(auth.api_token)
+                const {data: user} = await getUserByToken(auth.access_token)
                 setCurrentUser(user)
             } catch (error) {
                 console.error(error)

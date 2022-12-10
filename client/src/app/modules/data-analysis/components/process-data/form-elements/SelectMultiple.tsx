@@ -7,22 +7,26 @@ type ContentDataColumnProps = {
     data: string[]
     label: string
     fieldName: keyof ProcessFields
+    defaultValue?: any[]
 }
 
-const SelectMultiple: FC<ContentDataColumnProps> = ({label, data, fieldName}) => {
-    const {dataFields, setParamsFieldsPartial} = useDataAnalysis()
-    console.log("rend")
+const SelectMultiple: FC<ContentDataColumnProps> = ({defaultValue, label, data, fieldName}) => {
+    const {state, dispatch} = useDataAnalysis()
+
     return (
         <Autocomplete className="mt-3"
                       onChange={(event, newInputValue) => {
-                          console.log(newInputValue)
                           // @ts-ignore
-                          dataFields[fieldName] = newInputValue
-                          setParamsFieldsPartial(dataFields)
+                          state.dataFields[fieldName] = newInputValue
+                          dispatch({
+                              type: "add_params",
+                              params: state.dataFields
+                          })
 
                       }}
+                      value={defaultValue ? defaultValue : []}
                       multiple
-                      limitTags={1}
+                      limitTags={2}
                       size="small"
                       options={data}
                       getOptionLabel={(data) => data}
